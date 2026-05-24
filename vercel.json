@@ -11,13 +11,13 @@
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
-    { "source": "/api/auth/signup", "destination": "/api/auth/signup.js" },
-    { "source": "/api/auth/login", "destination": "/api/auth/login.js" },
-    { "source": "/api/evaluate", "destination": "/api/evaluate.js" },
-    { "source": "/api/chat", "destination": "/api/chat.js" },
-    { "source": "/api/history/:id", "destination": "/api/history/[id].js" },
-    { "source": "/api/history", "destination": "/api/history/index.js" },
-    { "source": "/(.*)", "destination": "/frontend/build/index.html" }
+  "routes": [
+    { "src": "/api/auth/signup", "dest": "/api/auth/signup.js" },
+    { "src": "/api/auth/login", "dest": "/api/auth/login.js" },
+    { "src": "/api/evaluate", "dest": "/api/evaluate.js" },
+    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/api/history/([^/]+)", "dest": "/api/history/[id].js" },
+    { "src": "/api/history", "dest": "/api/history/index.js" },
+    { "src": "/(.*)", "dest": "/frontend/build/index.html" }
   ]
 }
