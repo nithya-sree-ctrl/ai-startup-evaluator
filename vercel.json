@@ -12,10 +12,10 @@
     }
   ],
   "routes": [
-    { "src": "/api/auth/signup", "dest": "/api/auth/signup.js" },
-    { "src": "/api/auth/login", "dest": "/api/auth/login.js" },
-    { "src": "/api/evaluate", "dest": "/api/evaluate.js" },
-    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/api/auth/signup", "dest": "/api/auth/signup.js", "methods": ["POST", "OPTIONS"] },
+    { "src": "/api/auth/login", "dest": "/api/auth/login.js", "methods": ["POST", "OPTIONS"] },
+    { "src": "/api/evaluate", "dest": "/api/evaluate.js", "methods": ["POST", "OPTIONS"] },
+    { "src": "/api/chat", "dest": "/api/chat.js", "methods": ["POST", "OPTIONS"] },
     { "src": "/api/history/([^/]+)", "dest": "/api/history/[id].js" },
     { "src": "/api/history", "dest": "/api/history/index.js" },
     { "src": "/(.*)", "dest": "/frontend/build/index.html" }
