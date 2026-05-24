@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/api/auth/signup", "dest": "/api/auth/signup.js" },
+    { "src": "/api/auth/login", "dest": "/api/auth/login.js" },
+    { "src": "/api/evaluate", "dest": "/api/evaluate.js" },
+    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/api/history/([^/]+)", "dest": "/api/history/[id].js" },
+    { "src": "/api/history", "dest": "/api/history/index.js" },
+    { "src": "/(.*)", "dest": "/frontend/build/index.html" }
+  ]
+}

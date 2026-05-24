@@ -1,11 +1,9 @@
 {
   "name": "ai-startup-evaluator",
   "version": "1.0.0",
-  "scripts": {
-    "install-all": "cd backend && npm install && cd ../frontend && npm install && cd ..",
-    "start": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"cyan,magenta\" \"cd backend && npm start\" \"cd frontend && npm start\""
-  },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3"
   }
 }

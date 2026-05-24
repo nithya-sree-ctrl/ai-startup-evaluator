@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// Change this to your actual Render backend URL after deploying
 const api = axios.create({
-  baseURL: 'https://ai-startup-evaluator-backend.onrender.com/api',
+  baseURL: process.env.REACT_APP_API_URL || '/api',
 });
 
 api.interceptors.request.use((config) => {
