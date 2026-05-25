@@ -4,6 +4,32 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
+const connectMongo = async () => {
+  const MONGO_URI = process.env.MONGO_URI;
+  let retries = 5;
+  while (retries > 0) {
+    try {
+      await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 5000 });
+      console.log('✅ MongoDB connected');
+      return;
+    } catch (err) {
+      retries--;
+      console.error(`❌ MongoDB failed (${retries} retries left): ${err.message}`);
+      if (retries === 0) {
+        console.error('❌ Could not connect to MongoDB. Make sure MongoDB service is running.');
+        console.error('   Run this in Admin CMD: net start MongoDB');
+      } else {
+        await new Promise(r => setTimeout(r, 3000));
+      }
+    }
+  }
+};
+
+connectMongo();
+
+
 
 app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PUT', 'DELETE'], allowedHeaders: ['Content-Type', 'Authorization'] }));
 app.use(express.json());
@@ -27,28 +53,9 @@ process.on('unhandledRejection', (err) => console.error('Unhandled Rejection:', 
 const PORT = process.env.PORT || 5000;
 
 // Start server immediately
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
 
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
 // Connect MongoDB with retry
-const connectMongo = async () => {
-  const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/startup-evaluator';
-  let retries = 5;
-  while (retries > 0) {
-    try {
-      await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 5000 });
-      console.log('✅ MongoDB connected');
-      return;
-    } catch (err) {
-      retries--;
-      console.error(`❌ MongoDB failed (${retries} retries left): ${err.message}`);
-      if (retries === 0) {
-        console.error('❌ Could not connect to MongoDB. Make sure MongoDB service is running.');
-        console.error('   Run this in Admin CMD: net start MongoDB');
-      } else {
-        await new Promise(r => setTimeout(r, 3000));
-      }
-    }
-  }
-};
 
-connectMongo();
